@@ -3,46 +3,48 @@ require_once 'Usuario.php';
 require_once '../config/Database.php';
 
 class UsuarioDAO {
-    private $conn;
+    private PDO $conn;
 
     public function __construct() {
         $db = new Database();
         $this->conn = $db->getConnection();
     }
 
-    // Busca um usuário pelo email
-    public function buscarPorEmail($email) {
-        $query = "SELECT * FROM usuarios WHERE email = :email";
+    // Busca um usuário pelo  email
+    public function buscarPorEmail( string $email): ?array {
+        $query = "SELECT * FROM usuario WHERE  email = :email";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
-        // Retorna null se não encontrar
-        return $usuario ?: null;
-    }
-
-    // Busca um usuário pelo nome
-    public function buscarPorNome($nome) {
-        $query = "SELECT * FROM usuarios WHERE nome = :nome";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->execute();
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $usuario ?: null;
-    }
-
-    // Valida o login
-    public function validarLogin($email, $senha) {
-        $usuario = $this->buscarPorEmail($email);
-
-        // Verifica se encontrou e se a senha está correta
-        if ($usuario && isset($usuario['senha_hash']) && password_verify($senha, $usuario['senha_hash'])) {
-            return new Usuario($usuario); // Cria objeto Usuario
+        if ($stmt->execute()) {
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado ?: null;
         }
 
-        // Retorna null se falhar
         return null;
+    }
+
+    // Valida o login verificando email e senha
+    public function validarLogin( string $email, string $senha): ?Usuario {
+        $usuarioData = $this->buscarPorEmail($email);
+
+        if ($usuarioData && password_verify($senha, $usuarioData['senha_hash'])) {
+            return new Usuario($usuarioData);
+        }
+
+        return null;
+    }
+
+    // Cria um novo usuário no banco de dados
+    public function criarUsuario(string $nome, string $email, string $senha): bool {
+        $query = "INSERT INTO login.usuario (nome, email, senha_hash) VALUES (:nome, :email, :senha)";
+        $stmt = $this->conn->prepare($query);
+
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 }

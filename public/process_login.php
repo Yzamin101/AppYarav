@@ -15,8 +15,65 @@ $usuario = $usuarioDAO->validarLogin($email, $senha);
 if ($usuario) {
     $_SESSION['logado'] = true;
     $_SESSION['usuario_id'] = $usuario->getId();
-    echo "Login bem-sucedido!";
-} else {
-    echo "Email ou senha incorretos.";
+    $_SESSION['nome_usuario'] = $usuario->getNome(); // Obtendo o nome do usuário
+}else{
+    $_SESSION['nome_usuario'] = 'ERRO';
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Bem-Sucedido</title>
+    <style>
+        body {
+            background-color: #FFD1DC;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #8B4513;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FFEEF0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        p {
+            font-size: 20px;
+        }
+        button {
+            background-color: #FFB6C1;
+            border: none;
+            color: #8B4513;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #FFA6B6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login Bem-Sucedido!</h2>
+        <p>Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario']); ?></p>
+        <p>Aproveite sua experiência no Mundo literário</p>
+        <form action="../public/sucesso.php" method="get">
+            <button type="submit">Cadastrar livro</button>
+        </form>
+    </div>
+</body>
+</html>

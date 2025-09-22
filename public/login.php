@@ -1,106 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>Cadastro</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-image: url('foto2.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .cadastro-container {
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 40px;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 32px;
-      color: #cc9aa2;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      text-align: left;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      background-color: #ffc0cb;
-      color: white;
-      padding: 12px 20px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
-    }
-
-    button:hover {
-      background-color: #8f5863;
-    }
-
-    @media (max-width: 600px) {
-      .cadastro-container {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      button {
-        font-size: 14px;
-        padding: 10px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #E6E6FA;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #8B4513;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FFEEF0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        label {
+            font-size: 18px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border-radius: 8px;
+            border: 1px solid #8B4513;
+            font-size: 16px;
+        }
+        button {
+            background-color: #FFF0F5;
+            border: none;
+            color: #D8BFD8;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #FFA6B6;
+        }
+    </style>
 </head>
 <body>
-  <div class="cadastro-container">
-    <h1>Login</h1>
-    <form action="process_login.php" method="POST">
-      <label for="nome">Nome:</label>
-      <input type="text" name="nome" id="nome" required>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="sucesso.php" method="POST">
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br>
 
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required>
+            <label>Senha:</label><br>
+            <input type="password" name="senha" required><br>
 
-      <label for="senha">Senha:</label>
-      <input type="password" name="senha" id="senha" required>
-
-      <button type="submit">Entrar</button>
-    </form>
-  </div>
+            <button name="submit" type="submit">Entrar</button>
+        </form>
+    </div>
 </body>
 </html>

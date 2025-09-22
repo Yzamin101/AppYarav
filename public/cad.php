@@ -17,7 +17,8 @@ if (isset($_POST['adicionar'])) {
     $livroRepository->adicionar($livro);
 
     $_SESSION['mensagem'] = "📚 Livro cadastrado com sucesso!";
-    header("Location: index.php");
+    // Redireciona para cad.php para exibir a mensagem e a lista atualizada
+    header("Location: cad.php");
     exit;
 }
 
@@ -32,7 +33,7 @@ if (isset($_POST['editar'])) {
     $livroRepository->editar($isbn, $livro);
 
     $_SESSION['mensagem'] = "✏️ Livro editado com sucesso!";
-    header("Location: index.php");
+    header("Location: cad.php");
     exit;
 }
 
@@ -42,7 +43,7 @@ if (isset($_POST['excluir'])) {
     $livroRepository->excluir($isbn);
 
     $_SESSION['mensagem'] = "🗑️ Livro excluído com sucesso!";
-    header("Location: index.php");
+    header("Location: cad.php");
     exit;
 }
 
@@ -58,6 +59,7 @@ unset($_SESSION['mensagem']);
   <meta charset="UTF-8">
   <title>Cadastro de Livros</title>
   <style>
+    /* Estilos CSS permanecem os mesmos */
     * {
       margin: 0;
       padding: 0;
@@ -172,7 +174,7 @@ unset($_SESSION['mensagem']);
       <div class="mensagem"><?= $mensagem ?></div>
     <?php endif; ?>
 
-    <form action="index.php" method="POST">
+    <form action="cad.php" method="POST">
       <label for="titulo">Título:</label>
       <input type="text" name="titulo" id="titulo" required>
 
@@ -192,23 +194,23 @@ unset($_SESSION['mensagem']);
     <ul>
         <?php foreach ($livros as $livro): ?>
             <li>
-                <?= htmlspecialchars($livro['titulo']) ?> - 
-                <?= htmlspecialchars($livro['autor']) ?> (<?= $livro['ano'] ?>) 
+                <?= htmlspecialchars($livro['titulo']) ?> -
+                <?= htmlspecialchars($livro['autor']) ?> (<?= $livro['ano'] ?>)
                 - ISBN: <?= $livro['isbn'] ?>
 
-                <!-- Formulário para Editar -->
-                <form action="processa_cadastro.php" method="POST" style="display:inline;">
+                <form action="cad.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="editar" value="1">
                     <input type="hidden" name="isbn" value="<?= $livro['isbn'] ?>">
                     <input type="text" name="titulo" value="<?= $livro['titulo'] ?>" required>
                     <input type="text" name="autor" value="<?= $livro['autor'] ?>" required>
                     <input type="number" name="ano" value="<?= $livro['ano'] ?>" required>
-                    <button type="submit" name="editar">Editar</button>
+                    <button type="submit">Editar</button>
                 </form>
 
-                <!-- Formulário para Excluir -->
-                <form action="processa_cadastro.php" method="POST" style="display:inline;">
+                <form action="cad.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="excluir" value="1">
                     <input type="hidden" name="isbn" value="<?= $livro['isbn'] ?>">
-                    <button type="submit" name="excluir" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                 </form>
             </li>
         <?php endforeach; ?>

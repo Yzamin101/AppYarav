@@ -1,20 +1,14 @@
 [
     {
-        "titulo": "corpo",
-        "autor": "jorge",
-        "ano": "2008",
-        "isbn": "1234567891234"
+        "titulo": "Quero doce",
+        "autor": "Yasmin com fome",
+        "ano": "2025",
+        "isbn": "4578292"
     },
     {
-        "titulo": "humano",
-        "autor": "king",
-        "ano": "4444",
-        "isbn": "4002892212345"
-    },
-    {
-        "titulo": "presunto",
-        "autor": "ravisya",
-        "ano": "2001",
-        "isbn": "1212121212121"
+        "titulo": "yasmin",
+        "autor": "eu",
+        "ano": "232",
+        "isbn": "12"
     }
 ]
